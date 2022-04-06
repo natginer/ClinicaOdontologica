@@ -1,0 +1,19 @@
+-------------------------------------------------------------------------------
+Test set: com.example.clinica.PacienteServiceTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 11.844 s <<< FAILURE! - in com.example.clinica.PacienteServiceTest
+eliminarPacienteTest  Time elapsed: 0.004 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: com.example.clinica.entity.Turno.domicilio in com.example.clinica.entity.Domicilio.turnos
+Caused by: org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: com.example.clinica.entity.Turno.domicilio in com.example.clinica.entity.Domicilio.turnos
+
+traerTodos  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: com.example.clinica.entity.Turno.domicilio in com.example.clinica.entity.Domicilio.turnos
+Caused by: org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: com.example.clinica.entity.Turno.domicilio in com.example.clinica.entity.Domicilio.turnos
+
+agregarYBuscarPacienteTest  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: com.example.clinica.entity.Turno.domicilio in com.example.clinica.entity.Domicilio.turnos
+Caused by: org.hibernate.AnnotationException: mappedBy reference an unknown target entity property: com.example.clinica.entity.Turno.domicilio in com.example.clinica.entity.Domicilio.turnos
+

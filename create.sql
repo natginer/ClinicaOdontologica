@@ -1,0 +1,4 @@
+create table IF NOT EXISTS domicilios(id int auto_increment primary key,calle varchar(255),numero varchar (255),localidad varchar (255),provincia varchar (255));
+create table IF NOT EXISTS pacientes(id int auto_increment primary key,nombre varchar(255),apellido varchar (255),dni varchar (255),fecha_ingreso TIMESTAMP WITHOUT TIME ZONE,domicilio_id int, email varchar(30));
+create table IF NOT EXISTS odontologos (id int auto_increment primary key, matricula varchar(20),nombre varchar (255),apellido varchar (255));
+create table IF NOT EXISTS turno(id int auto_increment primary key,fecha TIMESTAMP WITHOUT TIME ZONE, hora varchar(255),paciente_id int, odontologo_id int );
