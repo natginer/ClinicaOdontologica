@@ -1,11 +1,17 @@
 package com.example.clinica.services;
 
+import com.example.clinica.dto.OdontologoDTO;
+
+import com.example.clinica.dto.PostTurnoDTO;
 import com.example.clinica.entity.Odontologo;
+import com.example.clinica.exceptions.NotFoundException;
+import com.example.clinica.repository.IGetOdontoogoRepository;
 import com.example.clinica.repository.IOdontologoRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.List;;
+import java.util.stream.Collectors;
 
 @Service
 public class OdontologoService {
@@ -13,27 +19,51 @@ public class OdontologoService {
    @Autowired
     IOdontologoRespository odontologoRespository;
 
+   @Autowired
+   IGetOdontoogoRepository iGetOdontoogoRepository;
+
     public OdontologoService(){}
 
-
-    public Odontologo buscar(int id){
-        return odontologoRespository.getById(id);
+    public OdontologoDTO guardar(Odontologo o){
+        Odontologo odontologo = odontologoRespository.save(o);
+        OdontologoDTO odontologoDTO = new OdontologoDTO(odontologo.getId(), odontologo.getNombre(),odontologo.getApellido(), odontologo.getMatricula());
+        return odontologoDTO;
     }
 
-    public Odontologo guardar(Odontologo o){
-        return odontologoRespository.save(o);
+    public OdontologoDTO buscar(int id) {
+        Odontologo odontologo = odontologoRespository.getById(id);
+        OdontologoDTO odontologoDTO = new OdontologoDTO(odontologo.getId(), odontologo.getNombre(),odontologo.getApellido(),
+               odontologo.getMatricula());
+        return odontologoDTO;
     }
 
-    public List<Odontologo> buscarTodos(){
-        List<Odontologo>l =  odontologoRespository.findAll();
-        return l;
+    public List<OdontologoDTO> buscarTodos(){
+        List<Odontologo>odontologos = odontologoRespository.findAll();
+        return odontologos.stream().map(odontologo -> new OdontologoDTO(odontologo.getId(), odontologo.getNombre(),odontologo.getApellido(),
+                odontologo.getMatricula())).collect(Collectors.toList());
     }
 
     public void eliminar(int id){
         odontologoRespository.deleteById(id);
     }
 
-    //    public Odontologo actualizar(Odontologo o){
-//        return odontologoRepository.(o);
-//    }
+    public OdontologoDTO actualizar(Odontologo o) {
+        Odontologo odontologo =  odontologoRespository.save(o);
+        OdontologoDTO odontologoDTO = new OdontologoDTO(odontologo.getId(), odontologo.getNombre(),odontologo.getApellido(), odontologo.getMatricula());
+        return odontologoDTO;
+    }
+
+    public Odontologo getByNombreYApellido(PostTurnoDTO postTurnoDTO){
+        return this.iGetOdontoogoRepository.getByNombreApellido(postTurnoDTO).orElseThrow(() -> new NotFoundException("Odontologo not found"));
+    }
+
+    public Odontologo getByMatricula(PostTurnoDTO matricula){
+        return this.iGetOdontoogoRepository.getByMatricula(matricula).orElseThrow(() -> new NotFoundException("Odontologo not found"));
+    }
+
+    public OdontologoDTO getByMatriculaDto (PostTurnoDTO matricula){
+        Odontologo odontologo = this.getByMatricula(matricula);
+        return new OdontologoDTO(odontologo.getId(), odontologo.getNombre(),odontologo.getApellido(),
+                odontologo.getMatricula());
+    }
 }

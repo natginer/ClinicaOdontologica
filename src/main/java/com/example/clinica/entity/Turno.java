@@ -1,40 +1,41 @@
 package com.example.clinica.entity;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.Date;
 
 @Entity
 @Table
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class Turno {
 
     @Id
     @SequenceGenerator(name = "turno_sequence",sequenceName = "turno_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "turno_sequence")
     int id;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fecha;
-    private Time hora;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="paciente_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="paciente_id", referencedColumnName = "id", nullable = false)
     private Paciente paciente;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="odontologo_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="odontologo_id", referencedColumnName = "id",nullable = false)
     private Odontologo odontologo;
-
 
     public Turno() {
     }
 
-    public Turno(int id, Date fecha, Time hora, Paciente paciente, Odontologo odontologo) {
+    public Turno(int id, Date fecha, Paciente paciente, Odontologo odontologo) {
         this.id = id;
         this.fecha = fecha;
-        this.hora = hora;
         this.paciente = paciente;
         this.odontologo = odontologo;
     }
 
-    public Turno(Date fecha, Time hora, Paciente paciente, Odontologo odontologo) {
+    public Turno(Date fecha, Paciente paciente, Odontologo odontologo) {
         this.fecha = fecha;
-        this.hora = hora;
         this.paciente = paciente;
         this.odontologo = odontologo;
     }
@@ -45,14 +46,6 @@ public class Turno {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public Time getHora() {
-        return hora;
-    }
-
-    public void setHora(Time hora) {
-        this.hora = hora;
     }
 
     public Paciente getPaciente() {
@@ -84,9 +77,9 @@ public class Turno {
         return "Turno{" +
                 "id=" + id+
                 ", fecha=" + fecha +
-                ", hora='" + hora + '\'' +
                 ", paciente=" + paciente +
                 ", odontologo=" + odontologo +
                 '}';
     }
+
 }

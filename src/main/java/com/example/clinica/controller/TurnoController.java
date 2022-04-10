@@ -1,6 +1,9 @@
 package com.example.clinica.controller;
 
 
+import com.example.clinica.dto.PacienteDTO;
+import com.example.clinica.dto.PostTurnoDTO;
+import com.example.clinica.dto.TurnoDTO;
 import com.example.clinica.entity.Odontologo;
 import com.example.clinica.entity.Paciente;
 import com.example.clinica.entity.Turno;
@@ -21,65 +24,34 @@ public class TurnoController {
 
     @Autowired
     private TurnoService turnoService;
-    @Autowired
-    private PacienteService pacienteService;
-    @Autowired
-    private OdontologoService odontologoService;
 
     @PostMapping()
-    public ResponseEntity<Turno> registrarTurno(@RequestBody Turno turno) {
-        ResponseEntity<Turno> response;
-        //controlar si los id son existentes
-        Paciente paciente = pacienteService.buscar(turno.getPaciente().getId());
-        Odontologo odontologo = odontologoService.buscar(turno.getOdontologo().getId());
-        //control
-        if (paciente != null && odontologo != null) {
-            response = ResponseEntity.ok(turnoService.guardar(turno));
-        } else {
-            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return response;
+    public ResponseEntity<?> registrarTurno (@RequestBody PostTurnoDTO postTurnoDTO) {
+        this.turnoService.guardar(postTurnoDTO);
+
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Turno>> listarTurnos() {
+    public ResponseEntity<List<TurnoDTO>> listarTurnos() {
         return ResponseEntity.ok(turnoService.buscarTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Turno> buscarPorId(@PathVariable("id") int id) {
-        ResponseEntity<Turno> response = null;
-
-        if (turnoService.buscar(id) == null) {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else {
-            response = new ResponseEntity(turnoService.buscar(id), HttpStatus.OK);
-        }
-        return response;
+    public ResponseEntity<?> buscarPorId(@PathVariable("id") int id) {
+        return ResponseEntity.ok(this.turnoService.buscar(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity eliminar(
+    public ResponseEntity<String> eliminar(
             @PathVariable("id") int id) {
-        ResponseEntity response = null;
-
-        if (this.turnoService.buscar(id) == null) {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else {
-            this.turnoService.eliminar(id);
-            response = new ResponseEntity(HttpStatus.NO_CONTENT);
-        }
-        return response;
+        turnoService.eliminar(id);
+        return new ResponseEntity<>("Turno deleted", HttpStatus.OK);
     }
+
+    @PutMapping()
+    public ResponseEntity<TurnoDTO> actualizar (@RequestBody Turno turno) {
+        return ResponseEntity.ok(turnoService.actualizar(turno));
+    }
+
 }
-
-    //@PutMapping()
-    //public ResponseEntity<Turno> actualizarTurno(@RequestBody Turno turno){
-      //  ResponseEntity response = null;
-        //if(turnoService.buscar(turno.getId()) == null ){
-         //   response = new ResponseEntity(HttpStatus.NOT_FOUND);
-        //} else{
-          //  response = new ResponseEntity(turnoService.actualizar(turno),HttpStatus.OK);
-        //}
-        //return response;
-

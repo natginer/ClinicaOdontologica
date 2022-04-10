@@ -43,14 +43,13 @@ window.addEventListener('load', function () {
             //luego los datos del odontologo
             //como ultima columna el boton eliminar
             pacienteRow.innerHTML = '<td>' + updateButton + '</td>' +
-                    '<td class=\"td_nombre\">' + paciente.nombre.toUpperCase() + '</td>' +
-                    '<td class=\"td_apellido\">' + paciente.apellido.toUpperCase() + '</td>' +
-                    '<td class=\"td_dni\">' + paciente.dni + '</td>' +
-                    '<td class=\"td_fechaIngreso\">' + paciente.fechaIngreso + '</td>' +
-                    '<td class=\"td_domicilio\"> Calle ' + paciente.domicilio.calle + ' ' + paciente.domicilio.numero + '</td>' +
-                    '<td class=\"td_email\">' + paciente.email + '</td>' +
+                                '<td class=\"td_nombre\">' + paciente.nombre.toUpperCase() + '</td>' +
+                                '<td class=\"td_apellido\">' + paciente.apellido.toUpperCase() + '</td>' +
+                                '<td class=\"td_dni\">' + paciente.dni + '</td>' +
+                                '<td class=\"td_fechaIngreso\">' + paciente.fechaIngreso + '</td>' +
+                                '<td class=\"td_domicilio\"> Calle ' + paciente.domicilio.calle + ' Nro ' + paciente.domicilio.numero + ', ' + paciente.domicilio.localidad + ', ' + paciente.domicilio.provincia  + '</td>' +
 
-                    '<td>' + deleteButton + '</td>';
+                                '<td>' + deleteButton + '</td>';
 
         };
 

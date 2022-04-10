@@ -1,5 +1,7 @@
 package com.example.clinica.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -7,8 +9,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Paciente {
 
     @Id
@@ -17,16 +21,16 @@ public class Paciente {
     private Integer id;
     private String nombre;
     private String apellido;
-    private String dni;
+    private int dni;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fechaIngreso;
-    @OneToOne(fetch= FetchType.LAZY)
+    @OneToOne(fetch= FetchType.LAZY,  cascade = CascadeType.ALL)
     @JoinColumn(name="domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
     @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<Turno> turnos = new HashSet<>();
 
-    public Paciente(Integer id, String nombre, String apellido, String dni, Date fechaIngreso, Domicilio domicilio) {
+    public Paciente(Integer id, String nombre, String apellido, int dni, Date fechaIngreso, Domicilio domicilio) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -35,7 +39,7 @@ public class Paciente {
         this.domicilio = domicilio;
     }
 
-    public Paciente(String nombre, String apellido, String dni, Date fechaIngreso, Domicilio domicilio) {
+    public Paciente(String nombre, String apellido, int dni, Date fechaIngreso, Domicilio domicilio) {
 
         this.nombre = nombre;
         this.apellido = apellido;
@@ -73,11 +77,11 @@ public class Paciente {
         this.nombre = nombre;
     }
 
-    public String getDni() {
+    public int getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
+    public void setDni(int dni) {
         this.dni = dni;
     }
 
@@ -97,6 +101,13 @@ public class Paciente {
         this.domicilio = domicilio;
     }
 
+    public Set<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(Set<Turno> turnos) {
+        this.turnos = turnos;
+    }
 
     @Override
     public String toString() {
@@ -107,6 +118,8 @@ public class Paciente {
                 ", dni='" + dni + '\'' +
                 ", fechaIngreso=" + fechaIngreso +
                 ", domicilio=" + domicilio +
+                ", turnos=" + turnos +
                 '}';
     }
+
 }

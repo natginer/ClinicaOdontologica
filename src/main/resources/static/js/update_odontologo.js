@@ -6,7 +6,7 @@ window.addEventListener('load', function () {
     const formulario = document.querySelector('#update_odontologo_form');
 
     formulario.addEventListener('submit', function (event) {
-        let peliculaId = document.querySelector('#odontologo_id').value;
+        let odontologo_id = document.querySelector('#odontologo_id').value;
 
         //creamos un JSON que tendrá los datos del odontologo
         //a diferencia de un odontologo nuevo en este caso enviamos el id
@@ -21,7 +21,7 @@ window.addEventListener('load', function () {
 
         //invocamos utilizando la función fetch la API odontologos con el método PUT que modificará
         //al odontologo que enviaremos en formato JSON
-        const url = '/odontologos/actualizar';
+        const url = '/odontologos';
         const settings = {
             method: 'PUT',
             headers: {
@@ -39,9 +39,10 @@ window.addEventListener('load', function () {
     //se encarga de llenar el formulario con los datos del odontologo
     //que se desea modificar
     function findBy(id) {
-          const url = '/odontologos'+"/"+id;
+          const url = '/odontologos'+"/"+id
           const settings = {
               method: 'GET'
+
           }
           fetch(url,settings)
           .then(response => response.json())

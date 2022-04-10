@@ -1,11 +1,13 @@
 package com.example.clinica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
 @Table
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Domicilio {
 
     @Id
@@ -16,6 +18,9 @@ public class Domicilio {
     private String numero;
     private String localidad;
     private String provincia;
+    @JsonIgnore
+    @OneToOne(mappedBy = "domicilio",  cascade = CascadeType.ALL)
+    private Paciente paciente;
 
     public Domicilio(){}
 
@@ -25,6 +30,7 @@ public class Domicilio {
         this.numero = numero;
         this.localidad = localidad;
         this.provincia = provincia;
+
     }
     public Domicilio( String calle, String numero, String localidad, String provincia) {
         this.calle = calle;
@@ -71,6 +77,14 @@ public class Domicilio {
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     @Override

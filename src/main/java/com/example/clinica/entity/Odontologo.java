@@ -1,6 +1,8 @@
 package com.example.clinica.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,6 +10,8 @@ import java.util.Set;
 
 @Entity
 @Table
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Odontologo {
 
    @Id
@@ -17,8 +21,7 @@ public class Odontologo {
     private String matricula;
     private String nombre;
     private String apellido;
-    @OneToMany(mappedBy = "odontologo", fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToMany(mappedBy = "odontologo", fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     private Set<Turno> turnos = new HashSet<>();
 
     public Odontologo(int id, String matricula, String nombre, String apellido) {
@@ -70,6 +73,14 @@ public class Odontologo {
         this.apellido = apellido;
     }
 
+    public Set<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(Set<Turno> turnos) {
+        this.turnos = turnos;
+    }
+
     @Override
     public String toString() {
         return "Odontologo{" +
@@ -77,6 +88,7 @@ public class Odontologo {
                 ", matricula='" + matricula + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
+                ", turnos=" + turnos +
                 '}';
     }
 }
