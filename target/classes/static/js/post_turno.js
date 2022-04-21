@@ -29,11 +29,11 @@ const formulario = document.querySelector('#add_new_turno');
 
             const odontologo_total= document.querySelector('#odontologo_select').value
 
-            const formData = {
-                fechaTurno: document.querySelector('#fecha').value,
-                dni: document.querySelector('#paciente_select').value,
-                matricula: odontologo_total.split(" ")[2]
-            }
+                         const formData = {
+                             fechaTurno: document.querySelector('#fecha').value,
+                             dni: document.querySelector('#paciente_select').value,
+                             matricula: odontologo_total.split(" ")[2]
+                         }
 
             console.log(formData)
 
@@ -61,7 +61,7 @@ const formulario = document.querySelector('#add_new_turno');
 
               let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
                                '<button type="button" class="close" data-dismiss="alert"></button>' +
-                               '<strong> Error intente nuevamente</strong> </div>'
+                               '<strong> Error Intente nuevamente </strong> </div>'
 
               document.querySelector('#response').innerHTML = errorAlert;
               document.querySelector('#response').style.display = "block";

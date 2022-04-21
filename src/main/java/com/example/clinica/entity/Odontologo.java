@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "matricula" }) })
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Odontologo {
@@ -18,6 +18,7 @@ public class Odontologo {
    @SequenceGenerator(name = "odontologo_sequence",sequenceName = "odontologo_sequence", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "odontologo_sequence")
     private int id;
+    @Column(unique=true)
     private String matricula;
     private String nombre;
     private String apellido;

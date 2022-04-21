@@ -5,8 +5,7 @@ window.addEventListener('load', function () {
 
     formulario.addEventListener('submit', function (event) {
 
-
-        let pacienteId = document.querySelector('#paciente_id').value;
+    let pacienteId = document.querySelector('#paciente_id').value;
 
 
       const formData = {

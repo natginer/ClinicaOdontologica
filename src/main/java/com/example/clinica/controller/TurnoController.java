@@ -1,14 +1,9 @@
 package com.example.clinica.controller;
 
 
-import com.example.clinica.dto.PacienteDTO;
 import com.example.clinica.dto.PostTurnoDTO;
 import com.example.clinica.dto.TurnoDTO;
-import com.example.clinica.entity.Odontologo;
-import com.example.clinica.entity.Paciente;
 import com.example.clinica.entity.Turno;
-import com.example.clinica.services.OdontologoService;
-import com.example.clinica.services.PacienteService;
 import com.example.clinica.services.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,8 +45,9 @@ public class TurnoController {
     }
 
     @PutMapping()
-    public ResponseEntity<TurnoDTO> actualizar (@RequestBody Turno turno) {
-        return ResponseEntity.ok(turnoService.actualizar(turno));
+    public ResponseEntity<?> actualizar (@RequestBody Turno turno) {
+        this.turnoService.actualizar(turno);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
 }

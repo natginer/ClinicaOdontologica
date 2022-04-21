@@ -2,8 +2,6 @@ package com.example.clinica.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +9,7 @@ import java.util.Set;
 
 
 @Entity
-@Table
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "dni" }) })
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Paciente {
 
@@ -21,8 +19,9 @@ public class Paciente {
     private Integer id;
     private String nombre;
     private String apellido;
+    @Column(unique=true)
     private int dni;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date fechaIngreso;
     @OneToOne(fetch= FetchType.LAZY,  cascade = CascadeType.ALL)
     @JoinColumn(name="domicilio_id", referencedColumnName = "id")
@@ -87,10 +86,6 @@ public class Paciente {
 
     public Date getFechaIngreso() {
         return fechaIngreso;
-    }
-
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
     }
 
     public Domicilio getDomicilio() {

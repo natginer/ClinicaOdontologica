@@ -1,6 +1,8 @@
 package com.example.clinica.controller;
 ;
+import com.example.clinica.dto.OdontologoDTO;
 import com.example.clinica.dto.PacienteDTO;
+import com.example.clinica.entity.Odontologo;
 import com.example.clinica.entity.Paciente;
 import com.example.clinica.services.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,21 +33,23 @@ public class PacienteController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(
             @PathVariable("id") int id) {
-        pacienteService.eliminar(id);
+        this.pacienteService.eliminar(id);
         return new ResponseEntity<>("Id eliminated", HttpStatus.OK);
     }
 
 
     @PostMapping
     public ResponseEntity<?> registrarPaciente (@RequestBody Paciente paciente) {
-        pacienteService.guardar(paciente);
+        this.pacienteService.guardar(paciente);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+
     @PutMapping()
     public ResponseEntity<PacienteDTO> actualizar(@RequestBody Paciente paciente) {
-        return ResponseEntity.ok(pacienteService.actualizar(paciente));
+        return ResponseEntity.ok(this.pacienteService.actualizar(paciente));
     }
+
 
 }
 

@@ -34,7 +34,7 @@ window.addEventListener('load', function () {
                                document.querySelector('#response').style.display = "block";
                                resetUploadForm();
         }).catch(error => {
-
+              console.log(error)
               let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
                                '<button type="button" class="close" data-dismiss="alert"></button>' +
                                '<strong> Error intente nuevamente</strong> </div>'

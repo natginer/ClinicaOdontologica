@@ -16,10 +16,5 @@ public class Util {
         java.sql.Date sqlDate = new java.sql.Date(timeInMilliSeconds);
         return sqlDate;
     }
-    public static java.sql.Time utilDateToSqlTime(Time utilDate){
-        long lnMilisegundos =utilDate.getTime();
-        java.sql.Time sqlTime = new java.sql.Time(lnMilisegundos);
-        return sqlTime;
-    }
 }
 

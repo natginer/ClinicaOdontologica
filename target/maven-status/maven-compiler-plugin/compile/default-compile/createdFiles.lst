@@ -1,11 +1,16 @@
 com/example/clinica/entity/Paciente.class
 com/example/clinica/controller/PacienteController.class
+com/example/clinica/repository/IGetOdontoogoRepository.class
 com/example/clinica/entity/Odontologo.class
 com/example/clinica/ClinicaApplication.class
 com/example/clinica/services/PacienteService.class
 com/example/clinica/repository/IPacienteRepository.class
+com/example/clinica/dto/PacienteDTO.class
 com/example/clinica/repository/ITurnoRepository.class
 com/example/clinica/controller/OdontologoController.class
+com/example/clinica/dto/TurnoDTO.class
+com/example/clinica/exceptions/NotFoundException.class
+com/example/clinica/dto/PostTurnoDTO.class
 com/example/clinica/controller/TurnoController.class
 com/example/clinica/services/TurnoService.class
 com/example/clinica/repository/IDomicilioRepository.class
@@ -13,4 +18,6 @@ com/example/clinica/services/OdontologoService.class
 com/example/clinica/entity/Domicilio.class
 com/example/clinica/entity/Turno.class
 com/example/clinica/util/Util.class
+com/example/clinica/dto/OdontologoDTO.class
+com/example/clinica/GlobalExceptionHandler.class
 com/example/clinica/repository/IOdontologoRespository.class

@@ -39,7 +39,8 @@ window.addEventListener('load', function() {
                  document.querySelector('#response').style.display = "block";
                  resetUploadForm();
 
-        }).catch(error => {
+            })
+            .catch(error => {
 
               let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
                                '<button type="button" class="close" data-dismiss="alert"></button>' +
@@ -61,6 +62,13 @@ window.addEventListener('load', function() {
         document.querySelector('#localidad').value = "";
         document.querySelector('#provincia').value = "";
 
+    }
+
+    function isInputNumber(evt){
+        let char = String.fromCharCode(evt.which)
+        if(!(/[0-9]/.test(char))) {
+        evt.preventDefault();
+        }
     }
 
     (function(){

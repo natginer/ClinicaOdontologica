@@ -1,5 +1,9 @@
 package com.example.clinica;
 
+import com.example.clinica.dto.OdontologoDTO;
+import com.example.clinica.dto.PacienteDTO;
+import com.example.clinica.dto.PostTurnoDTO;
+import com.example.clinica.dto.TurnoDTO;
 import com.example.clinica.entity.Domicilio;
 import com.example.clinica.entity.Odontologo;
 import com.example.clinica.entity.Paciente;
@@ -16,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -31,31 +37,22 @@ public class TurnoServiceTest {
     @Autowired
     private TurnoService turnoService;
 
-    public void cargarDataSet() {
-        /*
-        Domicilio domicilio = new Domicilio("Av Santa fe", "444", "CABA", "Buenos Aires");
-        Paciente p = pacienteService.guardar(new Paciente("Santiago", "Paz", 88888888, new Date(), domicilio));
-        this.odontologoService.guardar(new Odontologo("EEF45","Santiago", "Paz"));
-*/
-    }
 
     @Test
-    public void altaTurnoTest(){
-
-       /* this.cargarDataSet();
-        turnoService.guardar(new Turno(new Date(), pacienteService.buscar(1),odontologoService.buscar(1)));
-
-        Assert.assertNotNull(turnoService.buscar(1));*/
-    }
-
-    @Test
-    public void buscarTurnoTest(){
-        Assert.assertNotNull(turnoService.buscar(1));
-    }
-    @Test
-    public void eliminarTurnoTest(){
-        turnoService.eliminar(1);
-        Assert.assertFalse(turnoService.buscar(1) == null);
+    @Transactional
+    public void agregarBuscarYEliminarTurnoTest() {
+        Domicilio domicilio = new Domicilio("700", "123", "Temperley", "Buenos Aires");
+        this.pacienteService.guardar(new Paciente ("Tomas", "Pereyra", 3243234, new Date(), domicilio));
+        this.odontologoService.guardar(new Odontologo("998", "Fede", "Gomez"));
+        TurnoDTO t = this.turnoService.guardar(new PostTurnoDTO(new Date(), 3243234, "Fede", "Gomez","998"));
+        List<TurnoDTO> turnos = this.turnoService.buscarTodos();
+        Assert.assertFalse(turnos.isEmpty());
+        Assert.assertNotNull(this.turnoService.buscar(t.getId()));
+        this.turnoService.eliminar(t.getId());
+        Odontologo o = odontologoService.getByMatricula("998");
+        Paciente p = this.pacienteService.buscarDni(3243234);
+        this.odontologoService.eliminar(o.getId());
+        this.pacienteService.eliminar(p.getId());
     }
 }
 
