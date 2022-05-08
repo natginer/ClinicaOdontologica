@@ -49,6 +49,7 @@ public class TurnoService {
         turnoRepository.deleteById(id);
     }
 
+
     public TurnoDTO buscar(Integer id){
         return turnoRepository.findById(id)
                 .map(TurnoDTO::maptoTurnoDTO)
@@ -56,7 +57,9 @@ public class TurnoService {
     }
 
     public TurnoDTO actualizar(Turno t) {
-        Turno turno =  turnoRepository.save(t);
-        return TurnoDTO.maptoTurnoDTO(turno);
+        Turno turno =  this.turnoRepository.findById(t.getId()).orElseThrow(() -> new NotFoundException("Turno not found"));
+        Turno turnoActualizado = new Turno(turno.getId(), t.getFecha(), turno.getPaciente(), turno.getOdontologo());
+        this.turnoRepository.save(turnoActualizado);
+        return TurnoDTO.maptoTurnoDTO(turnoActualizado);
     }
 }

@@ -4,17 +4,16 @@ window.addEventListener('load', function () {
     const formulario = document.querySelector('#update_turno_form');
 
     formulario.addEventListener('submit', function (event) {
-    event.preventDefault()
 
         const formData = {
 
-            id: document.querySelector('#turno_id').value,
+            id: document.querySelector('#id').value,
             fecha: document.querySelector('#fecha'). value,
             paciente:{
-                    id: document.querySelector('#paciente').value
+                    dni: document.querySelector('#paciente').value
             },
             odontologo: {
-                    id:document.querySelector('#odontologo').value
+                    matricula:document.querySelector('#odontologo').value
             }
             }
 
@@ -44,7 +43,7 @@ window.addEventListener('load', function () {
           .then(response => response.json())
           .then(data => {
               let turno = data;
-                 document.querySelector('#turno_id').value = turno.id;
+                 document.querySelector('#id').value = turno.id;
                  document.querySelector('#fecha').value = turno.fecha;
                  document.querySelector('#paciente').value = turno.paciente.dni;
                  document.querySelector('#odontologo').value = turno.odontologo.matricula;

@@ -14,7 +14,7 @@ public class Turno {
     @Id
     @SequenceGenerator(name = "turno_sequence",sequenceName = "turno_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "turno_sequence")
-    int id;
+    private int id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fecha;
     @ManyToOne(fetch = FetchType.LAZY)

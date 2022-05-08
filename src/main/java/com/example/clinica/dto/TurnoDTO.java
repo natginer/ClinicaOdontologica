@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class TurnoDTO {
-    int id;
+    private int id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fecha;
     private PacienteDTO paciente;

@@ -25,13 +25,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/TurnoAlta.html/**", "/TurnoList.html/**" )
+                .antMatchers("/TurnoAlta.html/**", "/TurnoList.html/**")
                 .hasAuthority("USER")
-                .antMatchers("/index.html/**", "/TurnoAlta.html/**", "/TurnoList.html/**",
+                .antMatchers("/TurnoAlta.html/**", "/TurnoList.html/**",
                         "/odontologoAlta.html/**", "/odontologoList.html/**",
                         "/pacienteAlta.html/**", "/pacienteList.html/**")
                 .hasAuthority("ADMIN")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .failureUrl("/")
@@ -39,7 +39,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/")
                 .permitAll();
 
     }

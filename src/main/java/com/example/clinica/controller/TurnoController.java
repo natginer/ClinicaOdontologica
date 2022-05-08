@@ -29,6 +29,7 @@ public class TurnoController {
 
     @GetMapping()
     public ResponseEntity<List<TurnoDTO>> listarTurnos() {
+
         return ResponseEntity.ok(turnoService.buscarTodos());
     }
 
